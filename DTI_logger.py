@@ -1,8 +1,11 @@
 import serial
 import time
+from datetime import datetime
+import os
 
-filename = "Z Vals.csv"
-path = "C:\\Users\\ramiz\\Desktop\\"
+dt_string = datetime.now().strftime("%d-%m-%Y %H-%M-%S")
+z_coords_filename = f"Z Vals {dt_string}.csv"
+path = os.path.dirname(os.path.abspath(__file__))
 readings = 0
 
 PORT = 'COM14'
@@ -13,7 +16,6 @@ ser.flushInput()
 
 def get_reading():
     try:
-        #TODO: add kivy delay
         raw_reading = ser.read_until(b'\r',20)
         reading = float(raw_reading[3:])
         reading /= 1000.0
@@ -22,12 +24,11 @@ def get_reading():
     except Exception as e:
             print(e)
 
-
-with open (f"{path}{filename}", 'w') as f:
+local_path_z_coords = os.path.join(path, "Output", z_coords_filename)
+with open (local_path_z_coords, 'w') as f:
     while True:
         input("")
         value = get_reading()
-        # value = "test"
         readings += 1
         print(value)
         print(readings)
