@@ -1,6 +1,7 @@
 import os
 import paramiko
 from datetime import datetime
+import numpy as np
 
 # file name and path params
 dt_string = datetime.now().strftime("%d-%m-%Y %H-%M-%S")
@@ -15,8 +16,9 @@ password = "pi"
 port = 22
 
 # gcode params
-x_coords = [0, 404, 900]
-y_coords = range(2400, 0, -300)
+# x_coords = [0, 404, 900]
+x_min, x_max, x_gridpoints = 0, 1200, 4  # change these values for x reach and gridpoints
+y_min, y_max, y_gridpoints = 0, 2400, 8  # change these values for y reach and gridpoints
 xy_feedrate = 4000
 z_feedrate = 300
 dwell_period = 5
@@ -25,6 +27,8 @@ dwell_period = 5
 xy_coords_list = []
 
 # gcode generator
+x_coords = np.linspace(x_min, x_max, num=x_gridpoints + 1)
+y_coords = np.linspace(y_max, y_min, num=y_gridpoints + 1)
 local_path_gcode = os.path.join(path, "Output", gcode_filename)
 with open(local_path_gcode, 'w') as f:
     f.write("G0\n")
@@ -62,9 +66,9 @@ print("connection established successfully")
 
 ftp = ssh_client.open_sftp()
 
+# nice
 files = ftp.put(local_path_gcode, f"/home/pi/easycut-smartbench/src/jobCache/ {gcode_filename}")
 print("File transferred successfully")
 
 ftp.close()
 ssh_client.close()
-# nice
