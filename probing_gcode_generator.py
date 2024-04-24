@@ -16,6 +16,7 @@ port = 22
 
 # gcode params
 x_coords = [0, 404, 900]
+y_coords = range(2400, 0, -300)
 xy_feedrate = 4000
 z_feedrate = 300
 dwell_period = 5
@@ -30,7 +31,7 @@ with open(local_path_gcode, 'w') as f:
     f.write("G90\n")
     f.write(f"Z30 F{z_feedrate}\n")
 
-    for y in range(2400, 0, -300):
+    for y in y_coords:
         for x in x_coords:
             f.write(f"X{x} Y{y} F{xy_feedrate}\n")
             f.write(f"Z-3 F{z_feedrate}\n")
@@ -61,8 +62,9 @@ print("connection established successfully")
 
 ftp = ssh_client.open_sftp()
 
-files = ftp.put(local_path_gcode, "/home/pi/easycut-smartbench/src/jobCache/" + gcode_filename)
+files = ftp.put(local_path_gcode, f"/home/pi/easycut-smartbench/src/jobCache/ {gcode_filename}")
 print("File transferred successfully")
 
 ftp.close()
 ssh_client.close()
+# nice
