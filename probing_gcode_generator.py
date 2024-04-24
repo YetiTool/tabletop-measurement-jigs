@@ -2,20 +2,28 @@ import os
 import paramiko
 from datetime import datetime
 
+# file name and path params
 dt_string = datetime.now().strftime("%d-%m-%Y %H-%M-%S")
-xy_feedrate = 4000
-z_feedrate = 300
-dwell_period = 5
 gcode_filename = f"probing {dt_string}.gcode"
 xy_coords_filename = f"xy coordinates {dt_string}.csv"
 path = os.path.dirname(os.path.abspath(__file__))
+
+# sftp params
 host = "192.168.200.51"
 username = "pi"
 password = "pi"
 port = 22
+
+# gcode params
 x_coords = [0, 404, 900]
+xy_feedrate = 4000
+z_feedrate = 300
+dwell_period = 5
+
+# coordinate logging
 xy_coords_list = []
 
+# gcode generator
 local_path_gcode = os.path.join(path, "Output", gcode_filename)
 with open(local_path_gcode, 'w') as f:
     f.write("G0\n")
@@ -35,6 +43,7 @@ with open(local_path_gcode, 'w') as f:
 
 f.close()
 
+# coordinate log generator
 local_path_xy_coords = os.path.join(path, "Output", xy_coords_filename)
 with open (local_path_xy_coords, 'w') as c:
     for item in xy_coords_list:
@@ -42,6 +51,7 @@ with open (local_path_xy_coords, 'w') as c:
     print(f"File: '{xy_coords_filename}' saved to '{local_path_xy_coords}'")
 c.close()
 
+# sftp sending gcode file to console
 ssh_client = paramiko.SSHClient()
 
 ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
