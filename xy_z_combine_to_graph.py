@@ -71,7 +71,7 @@ surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.cividis_r, linewidth=0)
 fig.colorbar(surf)
 
 
-ax.set_zlim(-5, 5)  # Set Z axis limits
+ax.set_zlim(-1, 1)  # Set Z axis limits
 
 ax.xaxis.set_major_locator(MaxNLocator(5))
 ax.yaxis.set_major_locator(MaxNLocator(6))
