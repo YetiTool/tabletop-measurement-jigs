@@ -5,7 +5,7 @@ import os
 import threading
 
 # User defined variables
-x_gridpoints = 3  # For data formatting change to number of x_gridpoints in probing_gcode_generator
+x_gridpoints = 5  # For data formatting change to number of x_gridpoints in probing_gcode_generator
 PORT = 'COM14'
 
 dt_string = datetime.now().strftime("%d-%m-%Y %H-%M-%S")

@@ -10,7 +10,7 @@ import numpy as np
 # Inputs
 path = os.path.dirname(os.path.abspath(__file__))
 xy_filename = "xy coordinates 25-04-2024 17-51-37.csv"
-z_filename = "Z Vals 25-04-2024 17-56-44.csv"
+z_filename = "Z Vals 29-04-2024 19-01-56.csv"
 xy_path = os.path.join(path, "Output", xy_filename)
 z_path = os.path.join(path, "Output", z_filename)
 
@@ -67,7 +67,7 @@ Zs = DATA[:,2]
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.cividis_r, linewidth=0)
+surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.cividis_r , linewidth=0)
 fig.colorbar(surf)
 
 
