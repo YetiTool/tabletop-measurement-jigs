@@ -1,21 +1,18 @@
 import os
-import sys
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 # Inputs
 path = os.path.dirname(os.path.abspath(__file__))
-xy_filename = "xy coordinates 25-04-2024 17-51-37.csv"
-z_filename = "Z Vals 29-04-2024 19-01-56.csv"
+xy_filename = "xy coordinates 15-05-2024 15-17-51.csv"
+z_filename = "Z Vals 15-05-2024 16-31-29.csv"
 xy_path = os.path.join(path, "Output", xy_filename)
 z_path = os.path.join(path, "Output", z_filename)
 
 # Outputs
-xyz_filename = "xyz_coords.csv"#
+xyz_filename = "xyz_coords.csv"
 png_filename = "tabletop.png"
 xyz_path = os.path.join(path, "Output", xyz_filename)
 png_path = os.path.join(path, "Output", png_filename)
@@ -65,7 +62,7 @@ Ys = DATA[:,1]
 Zs = DATA[:,2]
 
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+ax = fig.add_subplot(111, projection='3d', proj_type = 'ortho')  # 'ortho' makes the view orthographic as opposed to perspective
 
 surf = ax.plot_trisurf(Xs, Ys, Zs, cmap=cm.cividis_r , linewidth=0)
 fig.colorbar(surf)
@@ -73,9 +70,13 @@ fig.colorbar(surf)
 
 ax.set_zlim(-1, 1)  # Set Z axis limits
 
-ax.xaxis.set_major_locator(MaxNLocator(5))
-ax.yaxis.set_major_locator(MaxNLocator(6))
-ax.zaxis.set_major_locator(MaxNLocator(5))
+ax.xaxis.set_major_locator(MaxNLocator(20))
+ax.yaxis.set_major_locator(MaxNLocator(20))
+ax.zaxis.set_major_locator(MaxNLocator(20))
+
+ax.xaxis.set_minor_locator(MaxNLocator(100))
+ax.yaxis.set_minor_locator(MaxNLocator(100))
+ax.zaxis.set_minor_locator(MaxNLocator(100))
 
 fig.tight_layout()
 

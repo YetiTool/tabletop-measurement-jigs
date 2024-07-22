@@ -5,8 +5,8 @@ import os
 import threading
 
 # User defined variables
-x_gridpoints = 5  # For data formatting change to number of x_gridpoints in probing_gcode_generator
-PORT = 'COM14'
+x_gridpoints = 251  # For data formatting change to number of x_gridpoints in probing_gcode_generator
+PORT = 'COM4'
 
 dt_string = datetime.now().strftime("%d-%m-%Y %H-%M-%S")
 z_coords_filename = f"Z Vals {dt_string}.csv"
